@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row my-5 text-center text-success">
+    <h1>Page d'inscription à un évênement</h1>
+    
+    <div class="card shadow-lg bg-dark text-light mx-auto my-5" style="width: 24rem;">
+      <div class="card-body">
+        <h5 class="card-title"> <%= @event.title %> </h5>
+        <h6 class="card-subtitle mb-2 text-warning"> <%=  @event.start_date.strftime('%Y %m %d %H:%M') %> </h6>
+        <h6 class="card-subtitle mb-2 text-primary"> <%=  @event.location %> </h6>
+        <h6 class="card-subtitle mb-2 text-muted"> <%=  @event.duration %> minutes </h6>
+        <h6 class="card-subtitle mb-2 text-muted"> Organisateur: <%=  @event.administrator.first_name %> </h6>
+        <p class="card-text"> <%=  @event.description %> </p>
+        <h6 class="card-subtitle mb-2 text-muted"> <%=  @event.price %> €  </h6>
+        
+        <% user_participates = false %>
+        <% @event.attendances.each do |a| %>
+          <% if a.user_id == current_user.id %>
+            <p class="text-center text-success">Vous êtes inscrit à cet évênement !</p>
+            <% user_participates = true %>             
+          <% end %>
+        <% end %>
+        <% unless user_participates %>
+          <%= link_to "Confirmer l'inscription", attendances_path(event_id: @event.id, id: current_user.id), method: :post, class: "btn btn-outline-light my-5 w-100" %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

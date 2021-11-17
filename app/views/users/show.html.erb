@@ -1,0 +1,54 @@
+<div class="container">
+
+  <div class="row">
+    <h2 class="mt-5 text-center text-success">Les évênements auxquels vous participez :</h2>
+    <% Attendance.all.each do |a| %>
+      <% if a.user_id == current_user.id && a.event.administrator != current_user %>
+        <% e = a.event %>
+        <div class="col">
+          <div class="card shadow-lg bg-dark text-light mx-auto my-5" style="width: 24rem;">
+            <div class="card-body">
+              <h5 class="card-title"> <%= e.title %> </h5>
+              <h6 class="card-subtitle mb-2 text-warning"> <%=  e.start_date.strftime('%Y %m %d %H:%M') %> </h6>
+              <h6 class="card-subtitle mb-2 text-primary"> <%=  e.location %> </h6>
+              <h6 class="card-subtitle mb-2 text-muted"> <%=  e.duration %> minutes </h6>
+              <h6 class="card-subtitle mb-2 text-muted"> Organisateur: <%=  e.administrator.first_name %> </h6>
+              <p class="card-text"> <%=  e.description %> </p>
+              <h6 class="card-subtitle mb-2 text-muted"> <%=  e.price %> €  </h6>
+              <%= link_to "Voir la fiche", event_path(:id => e.id), class: "btn btn-outline-light my-5 w-100" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <h2 class="mt-5 text-center text-success">Les évênements que vous organisez :</h2>
+    <% Attendance.all.each do |a| %>
+      <% if a.user_id == current_user.id && a.event.administrator == current_user %>
+        <% e = a.event %>
+        <div class="col">
+          <div class="card shadow-lg bg-dark text-light mx-auto my-5" style="width: 24rem;">
+            <div class="card-body">
+              <h5 class="card-title"> <%= e.title %> </h5>
+              <h6 class="card-subtitle mb-2 text-warning"> <%=  e.start_date.strftime('%Y %m %d %H:%M') %> </h6>
+              <h6 class="card-subtitle mb-2 text-primary"> <%=  e.location %> </h6>
+              <h6 class="card-subtitle mb-2 text-muted"> <%=  e.duration %> minutes </h6>
+              <h6 class="card-subtitle mb-2 text-muted"> Organisateur: <%=  e.administrator.first_name %> </h6>
+              <p class="card-text"> <%=  e.description %> </p>
+              <h6 class="card-subtitle mb-2 text-muted"> <%=  e.price %> €  </h6>
+              <%= link_to "Voir la fiche", event_path(:id => e.id), class: "btn btn-outline-light my-5 w-100" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="row text-center">
+    <div class="col">
+      <%= link_to "Editer MoN ProFiL", edit_user_registration_path, class: "btn btn-outline-primary my-5" %>
+    </div>
+  </div>
+</div>

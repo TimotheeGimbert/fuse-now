@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="p-5 text-center bg-image rounded-3" style="background-image: url('assets/crowd.jpg'); height: 600px;">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.51);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white">
+            <h4 class="my-5">Rejoignez l'énergie qui vous entoure</h4>
+            <% if current_user %>
+              <%= link_to "Créer un évênement", new_event_path, class: "btn btn-outline-light btn-lg mb-5" %>
+            <% else %>
+              <%= link_to "Créer un évênement", new_user_session_path, class: "btn btn-outline-light btn-lg mb-5" %>
+            <% end %>  
+          </div>
+        </div>
+      </div>
+      </div>
+    </div> 
+  </div>
+  <div class="row">
+    <% Event.all.each do |e| %>
+      <div class="col mx-2">
+        <div class="card shadow-lg bg-light text-light mx-auto my-5 p-2" style="width: 18rem; height: 400px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-dark text-end mb-3"> <%= e.title %> </h5>
+            <h6 class="card-subtitle mb-2 text-warning text-end"> <%= e.start_date.strftime('%Y %m %d %H:%M') %> </h6>
+            <h6 class="card-subtitle mb-2 text-primary text-start"> <%= e.location %> </h6>
+            <h6 class="card-subtitle mb-2 text-secondary"> <%= e.duration %> minutes </h6>
+            <p class="card-text text-secondary mt-3"> <%= e.description %> </p>
+            <div class="mt-auto">
+            <h6 class="card-subtitle mb-2 text-success text-center"> <%= e.price %> €  </h6>
+            <h6 class="card-subtitle mb-2 text-secondary text-center text-muted"> Organisateur: <%= e.administrator.first_name %> </h6>
+            <h6 class="card-subtitle mb-2 text-success text-center"> Déjà <%= e.attendances.length %> participants </h6>
+            <% if current_user %>
+              <%= link_to "Voir l'évênement", event_path(:id => e.id), class: "btn btn-outline-dark w-100  mb-3" %>
+            <% else %>
+              <%= link_to "Voir l'évênement", new_user_session_path, class: "btn btn-outline-secondary w-100 mb-3" %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

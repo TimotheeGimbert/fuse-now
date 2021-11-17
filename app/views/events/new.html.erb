@@ -1,0 +1,32 @@
+<div class="list-group-item text-center w-75 mx-auto mt-5">
+  <h2 class="mb-5">Création d'un évênement</h2>
+  <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <div class="event-creation__title"> 
+      <%= label_tag 'Titre' %>
+      <%= text_field_tag 'title', @event.title %>
+    </div>
+    <div class="event-creation__title"> 
+      <%= label_tag 'Date de début' %>
+      <%= date_field_tag 'start_date', @event.start_date %>
+    </div>
+    <div class="event-creation__title"> 
+      <%= label_tag 'Durée (en minutes)' %>
+      <%= text_field_tag 'duration', @event.duration %>
+    </div>
+    <div class="event-creation__title"> 
+      <%= label_tag 'Lieu' %>
+      <%= text_field_tag 'location', @event.location %>
+    </div>
+    <div class="event-creation__title"> 
+      <%= label_tag 'Prix' %>
+      <%= text_field_tag 'price', @event.price %>
+    </div>
+    <div class="event-creation__content"> 
+      <%= label_tag 'Description' %>
+      <%= text_area_tag 'description', @event.description %>
+    </div>
+    <div class="event-creation__submit-button">
+      <%= submit_tag "Créer l'évênement" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-lg bg-dark text-light mx-auto my-5" style="width: 24rem;">
+        <div class="card-body">
+          <h5 class="card-title"> <%= @event.title %> </h5>
+          <h6 class="card-subtitle mb-2 text-warning"> <%=  @event.start_date.strftime('%Y %m %d %H:%M') %> </h6>
+          <h6 class="card-subtitle mb-2 text-primary"> <%=  @event.location %> </h6>
+          <h6 class="card-subtitle mb-2 text-muted"> <%=  @event.duration %> minutes </h6>
+          <h6 class="card-subtitle mb-2 text-muted"> Organisateur: <%=  @event.administrator.first_name %> </h6>
+          <p class="card-text"> <%=  @event.description %> </p>
+          <h6 class="card-subtitle mb-2 text-muted"> <%=  @event.price %> €  </h6>
+          
+          <% user_participates = false %>
+          <% @event.attendances.each do |a| %>
+            <% if a.user_id == current_user.id %>
+              <p class="text-center text-success">Vous êtes inscrit à cet évênement !</p>
+              <% user_participates = true %>             
+            <% end %>
+          <% end %>
+          <% unless user_participates %>
+            <%= link_to "S'inscrire", new_attendance_path(event_id: @event.id), class: "btn btn-outline-light my-5 w-100" %>
+          <% end %> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <% if @event.administrator == current_user %>
+      <p class="text-center text-primary">Vous êtes administrateur de cet évênement !</p>
+      <p class="text-center">Voici la liste des participants incrits :</p>
+      <% @event.users.each do |u| %>
+        <div class="col">
+          <div class="card shadow-lg bg-dark text-light mx-auto my-5" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"> <%= u.first_name %> <%= u.last_name %></h5>
+              <h6 class="card-subtitle mb-2 text-warning"> <%= u.email %> </h6>
+              <p class="card-text"> <%= u.description %> </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>  
+  </div>
+
+</div>

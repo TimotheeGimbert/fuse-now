@@ -1,0 +1,14 @@
+// Place all the styles related to the event controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.event-creation {
+  &__title {
+    margin: 20px 0;
+  }
+  &__content {
+    > * {
+      width: 200px;
+    }
+  }
+}
